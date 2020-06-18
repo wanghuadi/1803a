@@ -25,7 +25,7 @@ public class GoodsController {
 	private GoodsService goodsService;
 
 	/**
-	 * 商品列表
+	 * 商品列表--------66666----------
 	 * @param pageNum
 	 * @param model
 	 * @return
