@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wanghuadi.mapper.GoodsMapper">
+
+	<select id="queryGoodsAll" parameterType="map" resultType="com.wanghuadi.beans.Goods">
+		select * from goods  g,category c where g.cid = c.cid 
+		
+		<if test="gname != null and gname != ''">
+			and g.gname like concat('%',#{gname},'%')
+		</if>
+		
+		<if test="startTime != null and startTime !=''">
+			and g.gtime >=#{startTime}
+		</if>
+		
+		<if test="endTime != null and endTime !=''">
+			and g.gtime &lt;=#{endTime}
+		</if>
+		
+		<if test="cid != null">
+			and g.cid = #{cid}
+		</if>
+		
+	</select>
+	
+	<select id="queryCategory" resultType="com.wanghuadi.beans.Category">
+		select * from category
+	</select>
+	
+	<insert id="addGoods" parameterType="com.wanghuadi.beans.Goods">
+		insert into goods
+		(gname,gtime,cid)
+		values
+		(#{gname},#{gtime},#{cid})
+	</insert>
+	
+	<update id="updateGoods" parameterType="com.wanghuadi.beans.Goods">
+		update goods set
+		gname=#{gname},gtime=#{gtime},cid=#{cid} where gid=#{gid}
+	</update>
+	
+	<select id="queryGoodsById" parameterType="int" resultType="com.wanghuadi.beans.Goods">
+		select * from goods  g where g.gid=#{0}
+	</select>
+	
+</mapper>
